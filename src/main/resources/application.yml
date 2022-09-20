@@ -1,0 +1,10 @@
+server:
+  port: 8500
+spring:
+  data:
+    mongodb:
+        database: demo
+        uri: mongodb://docker:mongopw@localhost:49153
+        auto-index-creation: true
+
+

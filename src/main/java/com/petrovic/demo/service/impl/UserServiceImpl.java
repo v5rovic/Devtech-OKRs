@@ -33,4 +33,8 @@ public record UserServiceImpl(UserRepo userRepo) implements UserService {
     return dto.email();
   }
 
+  @Override
+  public boolean existByEmail(String email) {
+    return userRepo.existsByEmail(email);
+  }
 }

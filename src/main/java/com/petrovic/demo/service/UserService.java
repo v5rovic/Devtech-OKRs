@@ -9,4 +9,6 @@ public interface UserService {
 
   String saveUser(UserDto user);
 
+  boolean existByEmail(String email);
+
 }

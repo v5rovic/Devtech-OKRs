@@ -19,7 +19,7 @@ services:
     image: demo
     build:
       context: ../
-      dockerfile: .Docker/Dockerfile
+      dockerfile: .Docker/dockerfile
     depends_on:
       - mongodb
     ports:

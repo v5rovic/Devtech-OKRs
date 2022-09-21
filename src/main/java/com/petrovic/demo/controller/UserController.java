@@ -5,6 +5,8 @@ import com.petrovic.demo.model.User;
 import com.petrovic.demo.repository.UserRepo;
 import com.petrovic.demo.service.UserService;
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")
-public record UserController(UserService userService, UserRepo repo) {
+@RequiredArgsConstructor
+public class UserController {
 
+  private final UserService userService;
+
+  private final UserRepo repo;
   @GetMapping("/{email}")
   public ResponseEntity<UserDto> getUserByEmail(@PathVariable String email)
       throws NotFoundException {

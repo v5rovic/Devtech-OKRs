@@ -4,6 +4,7 @@ import com.petrovic.demo.dto.UserDto;
 import com.petrovic.demo.model.User;
 import com.petrovic.demo.repository.UserRepo;
 import com.petrovic.demo.service.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -11,8 +12,10 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public record UserServiceImpl(UserRepo userRepo) implements UserService {
+@RequiredArgsConstructor
+public class UserServiceImpl implements UserService {
 
+  private final UserRepo userRepo;
   @Override
   public UserDto findUserByEmail(String email) throws NotFoundException {
     User user = userRepo.findByEmail(email);

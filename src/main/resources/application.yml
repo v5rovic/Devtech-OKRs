@@ -1,10 +1,12 @@
 server:
-  port: 8500
+  port: 8800
+
 spring:
   data:
     mongodb:
-        database: demo
-        uri: mongodb://docker:mongopw@localhost:49153
-        auto-index-creation: true
+      database: demo
+      user: root
+      password: root
+      uri: mongodb://localhost:27017
 
 

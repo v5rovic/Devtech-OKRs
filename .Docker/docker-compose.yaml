@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
 
-  mongodb:
+  mongo:
     image: mongo:latest
     restart: on-failure
 
@@ -21,6 +21,8 @@ services:
       context: ../
       dockerfile: .Docker/dockerfile
     depends_on:
-      - mongodb
+      - mongo
+    environment:
+      - SPRING_DATA_MONGODB_HOST=mongo
     ports:
       - "8800:8800"

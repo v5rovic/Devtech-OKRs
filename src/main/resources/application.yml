@@ -5,8 +5,11 @@ spring:
   data:
     mongodb:
       database: demo
-      user: root
+      username: root
       password: root
-      uri: mongodb://localhost:27017
+      host: localhost
+      port: 27017
+      authentication-database: admin
 
-
+mongock:
+  migration-scan-package: com.petrovic.demo.migration

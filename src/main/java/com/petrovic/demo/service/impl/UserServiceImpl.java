@@ -6,7 +6,6 @@ import com.petrovic.demo.repository.UserRepo;
 import com.petrovic.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
 
@@ -17,12 +16,13 @@ public class UserServiceImpl implements UserService {
 
   private final UserRepo userRepo;
   @Override
-  public UserDto findUserByEmail(String email) throws NotFoundException {
+  public UserDto findUserByEmail(String email) {
     User user = userRepo.findByEmail(email);
     if (user != null) {
       log.info("User with email: {} found!",email);
       return UserDto.fromUser(user);
     }
+
     log.info("User with email: {} not found!", email);
     return null;
   }
@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
   public String saveUser(UserDto dto) {
     if(userRepo.findByEmail(dto.email()) == null){
       userRepo.save(UserDto.toUser(dto));
+      return "User saved";
     }
 
     return dto.email();

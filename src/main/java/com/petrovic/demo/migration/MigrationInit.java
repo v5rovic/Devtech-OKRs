@@ -11,17 +11,17 @@ import lombok.RequiredArgsConstructor;
 
 @ChangeUnit(order = "1", id = "seedDatabase", author = "v5rovic")
 @RequiredArgsConstructor
-public class DbChangeLog {
+public class MigrationInit {
 
     private final UserRepo userRepo;
 
     @Execution
     public void seedDatabase() {
-        User u1 = new User("admin@email.com", "John", "Doe", "$2a$12$avci1V1t2gYeO7uw7ZvUceN82S1qPX8qOmgCVpbLkiFnjIOImSw7e", Role.ADMIN);
-        User u2 = new User("user@email.com", "Mark", "Yoe", "$2a$12$N1al8t/YDYA1U3hsk4GiPuWMu/UGn/66pClZ4kqclIWQIxjs0lDcy", Role.USER);
+        User admin = new User("admin@email.com", "John", "Doe", "123456", Role.ADMIN);
+        User user = new User("user@email.com", "Mark", "Yoe", "654321", Role.USER);
 
-        userRepo.insert(u1);
-        userRepo.insert(u2);
+        userRepo.insert(admin);
+        userRepo.insert(user);
     }
 
     @RollbackExecution

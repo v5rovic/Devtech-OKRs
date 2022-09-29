@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
   private final UserRepo userRepo;
+
   @Override
   public UserDto findUserByEmail(String email) {
     User user = userRepo.findByEmail(email);
@@ -22,19 +23,19 @@ public class UserServiceImpl implements UserService {
       log.info("User with email: {} found!",email);
       return UserDto.fromUser(user);
     }
-
     log.info("User with email: {} not found!", email);
-    return null;
+    throw new RuntimeException(String.format("User with email: %s not found!", email));
   }
 
   @Override
   public String saveUser(UserDto dto) {
-    if(userRepo.findByEmail(dto.email()) == null){
+    if(!userRepo.existsByEmail(dto.email())){
       userRepo.save(UserDto.toUser(dto));
-      return "User saved";
+      log.info("User with mail {} has been saved!", dto.email());
+      return dto.email();
     }
-
-    return dto.email();
+    log.info("User with this mail {} exist!", dto.email());
+    return String.format("User with this mail %s exist!", dto.email());
   }
 
   @Override

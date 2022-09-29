@@ -5,7 +5,6 @@ import com.petrovic.demo.model.User;
 import com.petrovic.demo.repository.UserRepo;
 import com.petrovic.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +20,7 @@ public class UserController {
   private final UserRepo repo;
 
   @GetMapping("/{email}")
-  public ResponseEntity<UserDto> getUserByEmail(@PathVariable String email)
-      throws NotFoundException {
+  public ResponseEntity<UserDto> getUserByEmail(@PathVariable String email) {
     UserDto user = userService.findUserByEmail(email);
     return new ResponseEntity<>(user, HttpStatus.OK);
   }

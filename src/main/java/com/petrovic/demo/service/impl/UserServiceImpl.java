@@ -6,6 +6,7 @@ import com.petrovic.demo.repository.UserRepo;
 import com.petrovic.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 
@@ -24,13 +25,13 @@ public class UserServiceImpl implements UserService {
       return UserDto.fromUser(user);
     }
     log.info("User with email: {} not found!", email);
-    throw new RuntimeException(String.format("User with email: %s not found!", email));
+    throw new UsernameNotFoundException(String.format("User with email: %s not found!", email));
   }
 
   @Override
   public String saveUser(UserDto dto) {
     if(!userRepo.existsByEmail(dto.email())){
-      userRepo.save(UserDto.toUser(dto));
+      userRepo.save(UserDto.toUser(dto, true));
       log.info("User with mail {} has been saved!", dto.email());
       return dto.email();
     }

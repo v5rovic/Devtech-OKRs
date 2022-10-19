@@ -7,6 +7,7 @@ import io.mongock.api.annotations.ChangeUnit;
 import io.mongock.api.annotations.Execution;
 import io.mongock.api.annotations.RollbackExecution;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @ChangeUnit(order = "1", id = "seedDatabase", author = "v5rovic")
@@ -17,8 +18,8 @@ public class MigrationInit {
 
     @Execution
     public void seedDatabase() {
-        User admin = new User("admin@email.com", "John", "Doe", "123456", Role.ADMIN);
-        User user = new User("user@email.com", "Mark", "Yoe", "654321", Role.USER);
+        User admin = new User("admin@email.com", "John", "Doe", new BCryptPasswordEncoder().encode("123456"), Role.ADMIN);
+        User user = new User("user@email.com", "Mark", "Yoe", new BCryptPasswordEncoder().encode("654321"), Role.USER);
 
         userRepo.insert(admin);
         userRepo.insert(user);

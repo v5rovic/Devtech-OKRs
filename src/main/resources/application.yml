@@ -13,3 +13,6 @@ spring:
 
 mongock:
   migration-scan-package: com.petrovic.demo.migration
+rsa:
+  private-key: classpath:certs/private.pem
+  public-key: classpath:certs/public.pem

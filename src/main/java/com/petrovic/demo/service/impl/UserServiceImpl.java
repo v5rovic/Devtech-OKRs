@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
   @Override
   public String saveUser(UserDto dto) {
     if(!userRepo.existsByEmail(dto.email())){
-      userRepo.save(UserDto.toUser(dto));
+      userRepo.save(UserDto.toUser(dto, true));
       log.info("User with mail {} has been saved!", dto.email());
       return dto.email();
     }
